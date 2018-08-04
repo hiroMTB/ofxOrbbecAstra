@@ -6,7 +6,7 @@ meta:
 	ADDON_URL = https://github.com/mattfelsen/ofxOrbbecAstra
 
 common:	
-	ADDON_LIBS += libs/astra/lib
+	#ADDON_LIBS += libs/astra/lib
 
 linux64:	
 	ADDON_DATA = libs/astra/lib/linux64/*	

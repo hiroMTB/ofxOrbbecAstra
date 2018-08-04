@@ -72,6 +72,31 @@ xcuserdata
 *.ilk
 *.aps
 ipch/
+*.db
+*.sln
+*.vcxproj
+*.exe
+*.tlog
+*.vcxproj.user
+*.filters
+*.log
+*.res
+icon.rc
+*.lib
+*.exp
+*.db-shm
+*.db-wal
+*.opendb
+*.hpv
+*.iobj
+*.ipdb
+
+# Windows
+# Windows image file caches
+Thumbs.db
+# Folder config file
+Desktop.ini
+
 
 # Eclipse
 .metadata
@@ -126,5 +151,4 @@ Desktop.ini
 #########################
 
 .mailmap
-*/bin/*astra*
-*/bin/Plugins
+*/bin
