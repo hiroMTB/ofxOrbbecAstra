@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/hiroMTB/ofxOrbbecAstra.svg?branch=master)](https://travis-ci.org/hiroMTB/ofxOrbbecAstra)
+[![Build status](https://ci.appveyor.com/api/projects/status/p5hc034bjff0pj16?svg=true)](https://ci.appveyor.com/project/hiroMTB/ofxorbbecastra)
+
 # ofxOrbbecAstra
 
 openFrameworks addon for using the [Orbbec Astra SDK](https://orbbec3d.com/develop/). 
