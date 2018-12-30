@@ -46,5 +46,7 @@ osx:
     # this does not work on OSX
     # ADDON_DLLS_TO_COPY  = libs/astra/lib/osx/
 	
-vs:	
-	ADDON_DLLS_TO_COPY  = dlls_to_copy
+vs:
+	ADDON_LIBS = libs/astra/lib/win64/Astra.lib
+	ADDON_LIBS += libs/astra/lib/win64/astra_core.lib
+	ADDON_LIBS += libs/astra/lib/win64/astra_core_api.lib
