@@ -23,6 +23,10 @@
 
 namespace astra
 {
+    /*! 
+    \ingroup cpp_basic_types_ref
+    \brief Represents a float 2d vector 
+    */
     struct Vector2i : public astra_vector2i_t
     {
         Vector2i()

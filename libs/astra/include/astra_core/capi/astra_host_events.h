@@ -30,7 +30,8 @@ ASTRA_API astra_status_t astra_notify_resource_unavailable(const char* resourceU
 
 enum {
     ASTRA_EVENT_RESOURCE_AVAILABLE = 1,
-    ASTRA_EVENT_RESOURCE_UNAVAILABLE = 2
+    ASTRA_EVENT_RESOURCE_UNAVAILABLE = 2,
+    ASTRA_EVENT_OPENNI_CONTROL = 3
 };
 
 ASTRA_END_DECLS

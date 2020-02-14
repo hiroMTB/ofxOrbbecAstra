@@ -29,12 +29,21 @@ struct astra_streamservice_proxy_t
                                                          const void*,
                                                          uint32_t);
 
+    astra_status_t (ASTRA_CALLBACK *streamset_is_available)(void*,
+                                                            astra_streamsetconnection_t,
+                                                            bool*);
+
     astra_status_t (ASTRA_CALLBACK *streamset_open)(void*,
                                                     const char*,
                                                     astra_streamsetconnection_t*);
 
     astra_status_t (ASTRA_CALLBACK *streamset_close)(void*,
                                                      astra_streamsetconnection_t*);
+
+    astra_status_t (ASTRA_CALLBACK *streamset_get_uri)(void*,
+                                                       astra_streamsetconnection_t,
+                                                       char*,
+                                                       int32_t);
 
     astra_status_t (ASTRA_CALLBACK *reader_create)(void*,
                                                    astra_streamsetconnection_t,
@@ -53,11 +62,19 @@ struct astra_streamservice_proxy_t
                                                             astra_streamconnection_t,
                                                             astra_stream_desc_t*);
 
+    astra_status_t (ASTRA_CALLBACK *stream_is_available)(void*,
+                                                         astra_streamconnection_t,
+                                                         bool*);
+
     astra_status_t (ASTRA_CALLBACK *stream_start)(void*,
                                                   astra_streamconnection_t);
 
     astra_status_t (ASTRA_CALLBACK *stream_stop)(void*,
                                                  astra_streamconnection_t);
+
+    astra_status_t (ASTRA_CALLBACK *reader_has_new_frame)(void*,
+                                                          astra_reader_t,
+                                                          bool*);
 
     astra_status_t (ASTRA_CALLBACK *reader_open_frame)(void*,
                                                        astra_reader_t,

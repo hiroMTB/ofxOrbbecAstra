@@ -19,6 +19,7 @@
 
 #include "Vector.hpp"
 #include "Matrix3x3.hpp"
+#include "DeviceController.hpp"
 #include "streams/Body.hpp"
 #include "streams/Color.hpp"
 #include "streams/Depth.hpp"
@@ -28,5 +29,19 @@
 #include "streams/Point.hpp"
 #include "streams/MaskedColor.hpp"
 #include "streams/ColorizedBody.hpp"
+
+/**
+ * \defgroup cpp_basic_types_ref basic types
+ * \ingroup cpp_ref
+
+ * \defgroup cpp_low_api_ref low level stream apis
+ * \ingroup cpp_ref
+ *
+ * \defgroup cpp_high_api_ref high level stream apis
+ * \ingroup cpp_ref
+ *
+ * \defgroup cpp_core_api_ref astra core apis
+ * \ingroup cpp_ref
+ */
 
 #endif /* ASTRA_HPP */

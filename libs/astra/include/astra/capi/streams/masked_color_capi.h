@@ -22,8 +22,16 @@
 
 ASTRA_BEGIN_DECLS
 
+/**
+ * \defgroup masked_color_ref masked color stream apis
+ * \ingroup c_high_api_ref
+ * @{
+ */
 ASTRA_API_EX astra_status_t astra_reader_get_maskedcolorstream(astra_reader_t reader,
                                                                   astra_maskedcolorstream_t* maskedcolorStream);
+
+ASTRA_API_EX astra_status_t astra_maskedcolorstream_is_available(astra_maskedcolorstream_t maskedcolorStream,
+                                                                 bool* isAvailable);
 
 ASTRA_API_EX astra_status_t astra_frame_get_maskedcolorframe(astra_reader_frame_t readerFrame,
                                                                 astra_maskedcolorframe_t* maskedcolorFrame);
@@ -47,6 +55,7 @@ ASTRA_API_EX astra_status_t astra_maskedcolorframe_get_metadata(astra_maskedcolo
 
 ASTRA_API_EX astra_status_t astra_maskedcolorframe_get_frameindex(astra_maskedcolorframe_t maskedcolorFrame,
                                                                      astra_frame_index_t* index);
+/** @} */
 ASTRA_END_DECLS
 
 #endif /* MASKED_COLOR_CAPI_H */

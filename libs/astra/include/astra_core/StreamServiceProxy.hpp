@@ -22,6 +22,12 @@
 
 namespace astra {
 
+    /*!
+      \ingroup cpp_core_api_ref
+      \brief Stream Service Proxy Class
+
+      \details Stream Service Proxy is use to proxy a connection
+     */
     class StreamServiceProxy : public astra_streamservice_proxy_t
     {
     public:
@@ -33,6 +39,12 @@ namespace astra {
             return astra_streamservice_proxy_t::notify_plugin_event(streamService, id, data, dataSize);
         }
 
+        astra_status_t streamset_is_available(astra_streamsetconnection_t connection,
+                                              bool* isAvailable)
+        {
+            return astra_streamservice_proxy_t::streamset_is_available(streamService, connection, isAvailable);
+        }
+
         astra_status_t streamset_open(const char* connectionString,
                                       astra_streamsetconnection_t* streamSet)
         {
@@ -42,6 +54,13 @@ namespace astra {
         astra_status_t streamset_close(astra_streamsetconnection_t* streamSet)
         {
             return astra_streamservice_proxy_t::streamset_close(streamService, streamSet);
+        }
+
+        astra_status_t streamset_get_uri(astra_streamsetconnection_t connection,
+                                         char* uri,
+                                         int32_t size)
+        {
+            return astra_streamservice_proxy_t::streamset_get_uri(streamService, connection, uri, size);
         }
 
         astra_status_t reader_create(astra_streamsetconnection_t streamSet,
@@ -69,6 +88,12 @@ namespace astra {
             return astra_streamservice_proxy_t::stream_get_description(streamService, connection, description);
         }
 
+        astra_status_t stream_is_available(astra_streamconnection_t connection,
+                                           bool* isAvailable)
+        {
+            return astra_streamservice_proxy_t::stream_is_available(streamService, connection, isAvailable);
+        }
+
         astra_status_t stream_start(astra_streamconnection_t connection)
         {
             return astra_streamservice_proxy_t::stream_start(streamService, connection);
@@ -77,6 +102,12 @@ namespace astra {
         astra_status_t stream_stop(astra_streamconnection_t connection)
         {
             return astra_streamservice_proxy_t::stream_stop(streamService, connection);
+        }
+
+        astra_status_t reader_has_new_frame(astra_reader_t reader,
+                                            bool* hasNewFrame)
+        {
+            return astra_streamservice_proxy_t::reader_has_new_frame(streamService, reader, hasNewFrame);
         }
 
         astra_status_t reader_open_frame(astra_reader_t reader,

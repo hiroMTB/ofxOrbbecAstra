@@ -36,6 +36,12 @@ namespace astra {
     using std::uint64_t;
 
     /*!
+      \defgroup cpp_body_api_ref body stream apis
+      \ingroup cpp_high_api_ref
+      @{
+     */
+
+    /*!
       \brief Bitmap representing a 2d mask
 
       Encapsulates a 2-dimensional bitmask. A non-zero pixel value is considered part
@@ -80,15 +86,18 @@ namespace astra {
         friend class BodyFrame;
     };
 
-    /*! \brief Mask representing pixels that have been
-      identified as belonging to tracked bodies */
+    /*! 
+      \brief Mask representing pixels that have been
+      identified as belonging to tracked bodies 
+    */
     using BodyMask = BitmapMask;
-    /*! \brief Mask representing pixels that have been
-      identified as belonging to the floor plane */
+    /*! 
+      \brief Mask representing pixels that have been
+      identified as belonging to the floor plane 
+    */
     using FloorMask = BitmapMask;
 
     /*!
-      \ingroup CTypes
       \brief Bitmask of body features
         Represents the possible features that body tracking can produce
         on a body. This is a bitmask so multiple features can be combined.
@@ -101,6 +110,49 @@ namespace astra {
         Joints = 1,
         /*! Recognition of hand poses */
         HandPoses = 3
+    };
+
+    /*!
+      \brief Skeleton profile representing the set of joints to be tracked.
+    */
+    enum class SkeletonProfile : ::astra_skeleton_profile_t {
+        /*! All supported joints */
+        Full = 0,
+        /*! Upper body only */
+        UpperBody = 1,
+        /*! Only four basic joints: Head, MidSpine, LeftHand, RightHand */
+        Basic = 2
+    };
+
+    /*!
+      \brief Represents the body tracking configuration that trades-off
+      tracking accuracy, memory, and CPU usage.
+    */
+    enum class SkeletonOptimization : ::astra_skeleton_optimization_t {
+        Optimization1 = 1,
+        /*! Configuration that minimizes memory usage at a cost of lower tracking accuracy */
+        MinimizeMemory = 2,
+        Optimization2 = 2,
+        Optimization3 = 3,
+        Optimization4 = 4,
+        /*! Configuration that balances accuracy with lower memory and CPU usage */
+        Balanced = 5,
+        Optimization5 = 5,
+        Optimization6 = 6,
+        Optimization7 = 7,
+        Optimization8 = 8,
+        Optimization9 = 9,
+        /*! Configuration that produces the best tracking accuracy */
+        BestAccuracy = 9,
+    };
+
+    /*!
+      \brief the orientation of people's heads in depth image.
+    */
+    enum class BodyOrientation : ::astra_body_orientation_t {
+        TOP = 0,
+        LEFT = 1,
+        RIGHT = 2
     };
 
     /*!
@@ -198,9 +250,8 @@ namespace astra {
     };
 
     /*!
-      \ingroup CTypes
       \brief Hand pose enum.
-        Enumeration of the hand poses that can be detected.
+      Enumeration of the hand poses that can be detected.
     */
     enum class HandPose : ::astra_handpose_t
     {
@@ -242,7 +293,9 @@ namespace astra {
      */
     using JointList = Array<const Joint>;
 
-    /*! \brief Identifier type for bodies */
+    /*! 
+     \brief Identifier type for bodies
+     */
     using BodyId = astra_body_id_t;
 
     /*!
@@ -391,7 +444,8 @@ namespace astra {
     };
 
     /*!
-      \brief Type alias for an immutable Array of \link Body Bodies\endlink
+      \brief Type alias for an immutable Array of 
+      \link Body Bodies\endlink
      */
     using BodyList = Array<const Body>;
 
@@ -439,14 +493,29 @@ namespace astra {
             return TFrameType(nullptr);
         }
 
+        /*! 
+        \brief get body frame is vaild
+        
+        \return body frame is vaild
+        */
         bool is_valid() const { return handle_ != nullptr; }
 
+        /*! 
+        \brief get body frame index
+        
+        \return body frame index
+        */
         astra_frame_index_t frame_index() const
         {
             throw_if_invalid_frame();
             return frameIndex_;
         }
 
+        /*! 
+        \brief get body frame info
+        
+        \return body frame info
+        */
         const BodyFrameInfo& info() const
         {
             throw_if_invalid_frame();
@@ -480,6 +549,16 @@ namespace astra {
                 static_cast<const Body*>(&bodyList.bodies[0]), bodyList.count);
         }
 
+        /**
+         * rotate body frame
+         * @param angle the angle of clockwise direction rotation, can be 90 and 270.
+         */
+		void rotate(int angle)
+		{
+			throw_if_invalid_frame();
+			astra_bodyframe_rotate(handle_,angle);
+		}
+
     private:
         BodyFrame(astra_bodyframe_t handle)
             : handle_(handle)
@@ -499,14 +578,30 @@ namespace astra {
         }
     };
 
+    
+    /*!
+      \brief A Body Data Stream
+
+      \details A Body Data Stream.
+     */
     class BodyStream : public DataStream
     {
     public:
+        /*! 
+        \brief default constructs
+        
+        \param[in] connection
+        */
         explicit BodyStream(astra_streamconnection_t connection)
             : DataStream(connection),
               bodyStream_(reinterpret_cast<astra_bodystream_t>(connection))
         { }
 
+        /*! 
+        \brief get body features
+        
+        \return body features
+        */
         BodyTrackingFeatureFlags get_body_features(astra_body_id_t id)
         {
             astra_body_tracking_feature_flags_t features = ASTRA_BODY_TRACKING_SEGMENTATION;
@@ -514,6 +609,11 @@ namespace astra {
             return static_cast<BodyTrackingFeatureFlags>(features);
         }
 
+        /*! 
+        \brief set body features
+        
+        \param[in] body features
+        */
         void set_body_features(astra_body_id_t id, BodyTrackingFeatureFlags features)
         {
             astra_bodystream_set_body_features(bodyStream_,
@@ -521,6 +621,11 @@ namespace astra {
                                                static_cast<astra_body_tracking_feature_flags_t>(features));
         }
 
+        /*! 
+        \brief get default body features
+        
+        \return default body features
+        */
         BodyTrackingFeatureFlags get_default_body_features()
         {
             astra_body_tracking_feature_flags_t features = ASTRA_BODY_TRACKING_SEGMENTATION;
@@ -528,10 +633,84 @@ namespace astra {
             return static_cast<BodyTrackingFeatureFlags>(features);
         }
 
+        /*! 
+        \brief set default body features
+        
+        \param[in] default body features
+        */
         void set_default_body_features(BodyTrackingFeatureFlags features)
         {
             astra_bodystream_set_default_body_features(bodyStream_,
                                                        static_cast<astra_body_tracking_feature_flags_t>(features));
+        }
+
+        /*! 
+        \brief get skeleton profile
+        
+        \return skeleton profile
+        */
+        SkeletonProfile get_skeleton_profile()
+        {
+            astra_skeleton_profile_t skeletonProfileState = ASTRA_SKELETON_PROFILE_FULL;
+            astra_bodystream_get_skeleton_profile(bodyStream_, &skeletonProfileState);
+            return static_cast<SkeletonProfile>(skeletonProfileState);
+        }
+
+        /*! 
+        \brief set skeleton profile
+        
+        \param[in] skeleton profile
+        */
+        void set_skeleton_profile(SkeletonProfile skeletonProfile)
+        {
+            astra_bodystream_set_skeleton_profile(bodyStream_,
+                                                  static_cast<astra_skeleton_profile_t>(skeletonProfile));
+        }
+
+        /*! 
+        \brief get skeleton optimization
+        
+        \return skeleton optimization
+        */
+        SkeletonOptimization get_skeleton_optimization()
+        {
+            astra_skeleton_optimization_t skeletonOptimization = ASTRA_SKELETON_OPTIMIZATION_BEST_ACCURACY;
+            astra_bodystream_get_skeleton_optimization(bodyStream_, &skeletonOptimization);
+            return static_cast<SkeletonOptimization>(skeletonOptimization);
+        }
+
+        /*! 
+        \brief set skeleton optimization
+        
+        \param[in] skeleton optimization
+        */
+        void set_skeleton_optimization(SkeletonOptimization skeletonOptimization)
+        {
+            astra_bodystream_set_skeleton_optimization(bodyStream_,
+                                                       static_cast<astra_skeleton_optimization_t>(skeletonOptimization));
+        }
+
+        /*! 
+        \brief get body orientation, default value is BodyOrientation::TOP.
+        
+        \return body orientation
+        */
+        BodyOrientation get_body_orientation()
+        {
+            astra_body_orientation_t bodyOrientation = ASTRA_BODY_ORIENTATION_TOP;
+            astra_bodystream_get_body_orientation(bodyStream_, &bodyOrientation);
+            return static_cast<BodyOrientation>(bodyOrientation);
+        }
+
+        /*! 
+        \brief set body orientation
+        
+        \param[in] body orientation
+        */
+        void set_body_orientation(BodyOrientation bodyOrientation)
+        {
+            astra_bodystream_set_body_orientation(bodyStream_,
+                                                  static_cast<astra_body_orientation_t>(bodyOrientation));
         }
 
         static const astra_stream_type_t id = ASTRA_STREAM_BODY;
@@ -539,6 +718,7 @@ namespace astra {
     private:
          astra_bodystream_t bodyStream_{nullptr};
     };
+    /** @} */
 }
 
 #endif /* ASTRA_BODY_HPP */

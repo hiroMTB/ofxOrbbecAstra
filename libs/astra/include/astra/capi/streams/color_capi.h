@@ -23,8 +23,16 @@
 
 ASTRA_BEGIN_DECLS
 
+/**
+ * \defgroup color_ref color stream apis
+ * \ingroup c_low_api_ref
+ * @{
+ */
 ASTRA_API_EX astra_status_t astra_reader_get_colorstream(astra_reader_t reader,
                                                          astra_colorstream_t* colorStream);
+
+ASTRA_API_EX astra_status_t astra_colorstream_is_available(astra_colorstream_t colorStream,
+                                                           bool* isAvailable);
 
 ASTRA_API_EX astra_status_t astra_colorstream_get_usb_info(astra_colorstream_t colorStream,
                                                            astra_usb_info_t* usbInfo);
@@ -55,6 +63,7 @@ ASTRA_API_EX astra_status_t astra_colorframe_get_metadata(astra_colorframe_t col
 
 ASTRA_API_EX astra_status_t astra_colorframe_get_frameindex(astra_colorframe_t colorFrame,
                                                             astra_frame_index_t* index);
+/** @} */
 ASTRA_END_DECLS
 
 #endif /* COLOR_CAPI_H */

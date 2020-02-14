@@ -25,4 +25,5 @@ ASTRA_BEGIN_DECLS
 ASTRA_API astra_status_t astra_core_version(astra_version_info_t* info);
 
 ASTRA_END_DECLS
-#endif /* ASTRA_CORE_VERSION_HPP */
+
+#endif // ASTRA_CORE_VERSION_HPP

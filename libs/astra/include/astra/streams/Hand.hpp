@@ -26,9 +26,29 @@
 
 namespace astra {
 
+    /*!
+      \defgroup cpp_hand_api_ref hand stream apis
+      \ingroup cpp_high_api_ref
+      @{
+     */
+
+    /*!
+      \brief Hand Point struct
+
+      \details Hand Point struct
+     */
     class HandPoint : public astra_handpoint_t
     {
     public:
+        /*! 
+        \brief constructs
+        
+        \param[in] tracking id
+        \param[in] status
+        \param[in] depth position
+        \param[in] world position
+        \param[in] world delta position
+        */
         HandPoint(std::int32_t trackingId,
                   astra_handstatus_t status,
                   Vector2i depthPosition,
@@ -42,11 +62,21 @@ namespace astra {
             astra_handpoint_t::worldDeltaPosition = worldDeltaPosition;
         }
 
+        /*! 
+        \brief constructs
+        
+        \param[in] handPoint
+        */
         HandPoint(const astra_handpoint_t& handPoint)
         {
             *this = handPoint;
         }
 
+        /*! 
+        \brief copy constructs
+        
+        \param[in] handPoint
+        */
         HandPoint& operator=(const ::astra_handpoint_t& handPoint)
         {
             astra_handpoint_t::trackingId = handPoint.trackingId;
@@ -58,13 +88,53 @@ namespace astra {
             return *this;
         }
 
+        /*! 
+        \brief get astra_handpoint_t point
+        
+        \return astra_handpoint_t point
+        */
         inline operator ::astra_handpoint_t*() { return this; }
+        
+        /*! 
+        \brief get astra_handpoint_t point
+        
+        \return const astra_handpoint_t point
+        */
         inline operator const ::astra_handpoint_t*() const { return this; }
 
+        /*! 
+        \brief get tracking id
+        
+        \return tracking_id
+        */
         inline std::int32_t tracking_id() const { return astra_handpoint_t::trackingId; }
+        
+        /*! 
+        \brief get status
+        
+        \return status
+        */
         inline astra_handstatus_t status() const { return astra_handpoint_t::status; }
+        
+        /*! 
+        \brief get depth position
+        
+        \return depth position
+        */
         inline Vector2i depth_position() const { return astra_handpoint_t::depthPosition; }
+        
+        /*! 
+        \brief get world position
+        
+        \return world position
+        */
         inline Vector3f world_position() const { return astra_handpoint_t::worldPosition; }
+        
+        /*! 
+        \brief get world delta position
+        
+        \return world delta position
+        */
         inline Vector3f world_delta_position() const { return astra_handpoint_t::worldDeltaPosition; }
 
     private:
@@ -74,9 +144,19 @@ namespace astra {
         Vector3f worldDeltaPosition_;
     };
 
+    /*!
+      \brief A Hand Stream
+
+      \details A Hand Stream
+     */
     class HandStream : public DataStream
     {
     public:
+        /*! 
+        \brief constructs
+        
+        \param[in] stream connection
+        */
         explicit HandStream(astra_streamconnection_t connection)
             : DataStream(connection),
               handStream_(connection)
@@ -84,6 +164,11 @@ namespace astra {
 
         static const astra_stream_type_t id = ASTRA_STREAM_HAND;
 
+        /*! 
+        \brief get is include candidate points
+        
+        \return is include candidate points
+        */
         bool get_include_candidate_points() const
         {
             bool includeCandidatePoints;
@@ -91,6 +176,11 @@ namespace astra {
             return includeCandidatePoints;
         }
 
+        /*! 
+        \brief set is include candidate points
+        
+        \param[in] is include candidate points
+        */
         void set_include_candidate_points(bool includeCandidatePoints)
         {
             astra_handstream_set_include_candidate_points(handStream_, includeCandidatePoints);
@@ -99,11 +189,21 @@ namespace astra {
         astra_handstream_t handStream_;
     };
 
+    /*!
+      \brief A Hand Data Frame
+
+      \details A Hand Data Frame
+     */
     class HandFrame
     {
     public:
         using HandPointList = std::vector<HandPoint>;
 
+        /*! 
+        \brief set is include candidate points
+        
+        \param[in] is include candidate points
+        */
         template<typename TFrameType>
         static TFrameType acquire(astra_reader_frame_t readerFrame,
                                   astra_stream_subtype_t subtype)
@@ -118,6 +218,11 @@ namespace astra {
             return TFrameType(nullptr);
         }
 
+        /*! 
+        \brief constructs
+        
+        \param[in] handFrame
+        */
         HandFrame(astra_handframe_t handFrame)
         {
             handFrame_ = handFrame;
@@ -132,9 +237,25 @@ namespace astra {
             }
         }
 
+        /*! 
+        \brief get is valid
+        
+        \return is valid
+        */
         bool is_valid() const { return handFrame_ != nullptr; }
+        
+        /*! 
+        \brief get handle
+        
+        \return handle
+        */
         astra_handframe_t handle() const { return handFrame_; }
 
+        /*! 
+        \brief get hand Points count
+        
+        \return hand Points count
+        */
         size_t handpoint_count() const
         {
             throw_if_invalid_frame();
@@ -143,6 +264,11 @@ namespace astra {
             return handPoints_.size();
         }
 
+        /*! 
+        \brief get hand Points
+        
+        \return hand Points
+        */
         const HandPointList& handpoints() const
         {
             throw_if_invalid_frame();
@@ -150,6 +276,11 @@ namespace astra {
             return handPoints_;
         }
 
+        /*! 
+        \brief get frame index
+        
+        \return frame index
+        */
         astra_frame_index_t frame_index() const
         {
             throw_if_invalid_frame();
@@ -189,6 +320,7 @@ namespace astra {
         astra_handframe_t handFrame_{nullptr};
         astra_frame_index_t frameIndex_;
     };
+    /** @} */
 }
 
 #endif /* ASTRA_HAND_HPP */

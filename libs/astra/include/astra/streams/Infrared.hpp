@@ -25,6 +25,17 @@
 
 namespace astra {
 
+    /*!
+      \defgroup cpp_ir_api_ref infrared stream apis
+      \ingroup cpp_low_api_ref
+      @{
+     */
+
+    /*!
+      \brief A Infrared Stream
+
+      \details A Infrared Stream.
+     */
     class InfraredStream : public ImageStream
     {
     public:
@@ -35,6 +46,11 @@ namespace astra {
         static const astra_stream_type_t id = ASTRA_STREAM_INFRARED;
     };
 
+    /*!
+      \brief A Infrared Frame use 16bit unsigned short format.
+
+      \details A Infrared Frame use 16bit unsigned short format.
+     */
     class InfraredFrame16 : public ImageFrame<uint16_t, ASTRA_STREAM_INFRARED>
     {
     public:
@@ -43,6 +59,11 @@ namespace astra {
         {}
     };
 
+    /*!
+      \brief A Infrared Frame use rgb format.
+
+      \details A Infrared Frame use rgb format.
+     */
     class InfraredFrameRgb : public ImageFrame<RgbPixel, ASTRA_STREAM_INFRARED>
     {
     public:
@@ -50,7 +71,7 @@ namespace astra {
             : ImageFrame(frame, ASTRA_PIXEL_FORMAT_RGB888)
         {}
     };
-
+    /** @} */
 }
 
 #endif /* ASTRA_INFRARED_HPP */

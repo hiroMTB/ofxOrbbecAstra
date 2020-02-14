@@ -20,6 +20,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+const uint32_t ASTRA_STREAMSET_URI_MAX_LENGTH = 256;
+
 const uint8_t ASTRA_MAX_READER_STREAMS = 16;
 
 const int ASTRA_TIMEOUT_FOREVER = -1;
@@ -32,6 +34,10 @@ typedef int32_t astra_stream_subtype_t;
 typedef int32_t astra_frame_index_t;
 
 const astra_stream_subtype_t DEFAULT_SUBTYPE = 0;
+
+#ifdef __ANDROID__
+const astra_stream_subtype_t COLOR_NV21_SUBTYPE = 1;
+#endif
 
 typedef struct {
     astra_stream_type_t type;
@@ -100,7 +106,8 @@ typedef enum {
 typedef enum {
     ASTRA_CHIP_ID_UNKNOWN = 0,
     ASTRA_CHIP_ID_MX400 = 1,
-    ASTRA_CHIP_ID_MX6000 = 2
+    ASTRA_CHIP_ID_MX6000 = 2,
+    ASTRA_CHIP_ID_DUAL_MX6000 = 3
 } astra_chip_id_t;
 
 typedef uint32_t astra_event_id;
@@ -114,11 +121,11 @@ typedef uint32_t astra_event_id;
 #endif
 
 #ifndef ASTRA_NULL
-#  ifdef NULL
-#    define ASTRA_NULL NULL
-#  else
-#    define ASTRA_NULL 0
-#  endif
+    #ifdef NULL
+        #define ASTRA_NULL NULL
+    #else
+        #define ASTRA_NULL 0
+    #endif
 #endif
 
 typedef int8_t astra_bool_t;

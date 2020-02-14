@@ -23,17 +23,16 @@
 #include "hand_types.h"
 #include "image_types.h"
 
-// https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
-// http://stackoverflow.com/questions/3350852/how-to-correctly-fix-zero-sized-array-in-struct-union-warning-c4200-without
-#if ! defined(__ANDROID__) && (defined(__GNUC__) || defined(__clang__))
-#define PACK_STRUCT __attribute__((packed))
+#if __GNUC__
+    #define ASTRA_ALIGN(X) __attribute__((__aligned__(X)))
+#elif _MSC_VER
+    #define ASTRA_ALIGN(X) __declspec(align(X))
 #else
-#define PACK_STRUCT
+    #error "Unsupported compiler"
 #endif
 
-#ifdef _MSC_VER
-#pragma pack(push, 1)
-#endif
+// https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+// http://stackoverflow.com/questions/3350852/how-to-correctly-fix-zero-sized-array-in-struct-union-warning-c4200-without
 
 struct _astra_imageframe {
     union {
@@ -66,7 +65,7 @@ struct _astra_bodyframe {
         uint64_t pad0;
     };
     astra_bodyframe_info_t info;
-    astra_bodymask_t bodyMask;
+    ASTRA_ALIGN(32) astra_bodymask_t bodyMask;
     astra_floor_info_t floorInfo;
     astra_body_list_t bodyList;
 };
@@ -81,7 +80,7 @@ struct _astra_bodyframe {
 
 typedef struct _astra_imageframe_wrapper {
     _astra_imageframe frame;
-    char frame_data[];
+    ASTRA_ALIGN(32) char frame_data[];
 } astra_imageframe_wrapper_t;
 
 typedef struct _astra_handframe_wrapper {
@@ -98,10 +97,6 @@ typedef struct _astra_bodyframe_wrapper {
 #pragma warning( pop )
 #elif defined(__clang__)
 #pragma clang diagnostic pop
-#endif
-
-#ifdef _MSC_VER
-#pragma pack(pop)
 #endif
 
 #endif /* STREAM_TYPES_H */

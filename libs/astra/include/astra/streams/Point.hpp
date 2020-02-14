@@ -24,12 +24,28 @@
 
 namespace astra {
 
+    /*!
+      \defgroup cpp_point_api_ref point stream apis
+      \ingroup cpp_high_api_ref
+      @{
+     */
+
+    /*!
+      \brief A Point Data Stream
+
+      \details A Point Data Stream.
+     */
     class PointStream : public DataStream
     {
     public:
         PointStream()
         {}
 
+        /*! 
+        \brief default constructs
+        
+        \param[in] connection
+        */
         explicit PointStream(astra_streamconnection_t connection)
             : DataStream(connection)
         {
@@ -42,13 +58,24 @@ namespace astra {
         astra_pointstream_t pointStream_;
     };
 
+    /*!
+      \brief A Point Data Frame
+
+      \details A Point Data Frame
+     */
     class PointFrame : public ImageFrame<Vector3f, ASTRA_STREAM_POINT>
     {
     public:
+        /*! 
+        \brief default constructs
+        
+        \param[in] frame
+        */
         PointFrame(astra_imageframe_t frame)
             : ImageFrame(frame, ASTRA_PIXEL_FORMAT_POINT)
         {}
     };
+    /** @} */
 }
 
 #endif // ASTRA_POINT_HPP

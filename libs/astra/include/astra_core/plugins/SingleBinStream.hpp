@@ -30,31 +30,31 @@ namespace astra { namespace plugins {
         single_bin_stream(PluginServiceProxy& pluginService,
                           astra_streamset_t streamSet,
                           StreamDescription description,
-                          std::size_t bufferSize)
+                          std::size_t extraDataSize)
             : stream(pluginService,
                      streamSet,
                      description)
         {
             bin_ = astra::make_unique<bin_type>(pluginService,
                                                 get_handle(),
-                                                sizeof(TFrameType) + bufferSize);
+                                                extraDataSize);
         }
 
         using frame_type = TFrameType;
 
-        std::size_t size() const
+        std::size_t additional_buffer_size() const
         {
-            return bin_->size();
+            return bin_->additional_buffer_size();
         }
 
-        void set_size(const std::size_t newBufferSize)
+        void set_additional_buffer_size(const std::size_t additionalBufferSize)
         {
-            if (newBufferSize != size())
+            if (additionalBufferSize != additional_buffer_size())
             {
                 std::unique_ptr<bin_type> newBin =
                     astra::make_unique<bin_type>(pluginService(),
                                                  get_handle(),
-                                                 sizeof(TFrameType) + newBufferSize);
+                                                 additionalBufferSize);
                 for(auto& conn : connections_)
                 {
                     bin_->unlink_connection(conn);

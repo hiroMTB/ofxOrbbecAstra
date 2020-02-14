@@ -30,15 +30,14 @@ namespace astra { namespace plugins {
     public:
         stream_bin(PluginServiceProxy& pluginService,
                    astra_stream_t streamHandle,
-                   const std::uint32_t dataSize)
+                   const std::uint32_t additionalDataSize)
             : streamHandle_(streamHandle),
               pluginService_(pluginService),
-              bufferSize_(dataSize)
+              additionalBufferSize_(additionalDataSize),
+              totalBufferSize_(additionalDataSize + sizeof(TFrameType))
         {
-            const std::uint32_t dataWrapperSize = dataSize + sizeof(TFrameType);
-
             pluginService_.create_stream_bin(streamHandle,
-                                             dataWrapperSize,
+                                             totalBufferSize_,
                                              &binHandle_,
                                              &currentBuffer_);
         }
@@ -104,15 +103,26 @@ namespace astra { namespace plugins {
             pluginService_.link_connection_to_bin(connection, nullptr);
         }
 
-        std::uint32_t size() const
+        std::uint32_t total_buffer_size() const
         {
-            return bufferSize_;
+            return totalBufferSize_;
+        }
+
+        std::uint32_t main_buffer_size() const
+        {
+            return sizeof(TFrameType);
+        }
+
+        std::uint32_t additional_buffer_size() const
+        {
+            return additionalBufferSize_;
         }
 
     private:
         astra_stream_t streamHandle_;
         PluginServiceProxy& pluginService_;
-        std::uint32_t bufferSize_{0};
+        std::uint32_t additionalBufferSize_{0};
+        std::uint32_t totalBufferSize_{0};
         astra_bin_t binHandle_;
         astra_frame_t* currentBuffer_{nullptr};
         bool locked_{false};

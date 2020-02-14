@@ -169,9 +169,8 @@ namespace astra { namespace plugins {
                                                                                                \
     ASTRA_EXPORT void astra_plugin_initialize(astra_pluginservice_proxy_t* pluginProxy)        \
     {                                                                                          \
-        __g_serviceProxy = static_cast<astra::PluginServiceProxy*>(pluginProxy);               \
-        g_plugin = astra::make_unique<className>(                                              \
-            static_cast<astra::PluginServiceProxy*>(pluginProxy));                             \
+        __g_serviceProxy = reinterpret_cast<astra::PluginServiceProxy*>(pluginProxy);          \
+        g_plugin = astra::make_unique<className>(__g_serviceProxy);                            \
         g_plugin->initialize();                                                                \
     }                                                                                          \
                                                                                                \

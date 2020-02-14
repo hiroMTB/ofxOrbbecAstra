@@ -28,6 +28,15 @@
 #include "streams/point_capi.h"
 #include "streams/masked_color_capi.h"
 #include "streams/colorized_body_capi.h"
+#include "astra_device_control.h"
 #include "astra_version.h"
+
+/**
+ * \defgroup c_low_api_ref low level stream apis
+ * \ingroup c_ref
+ *
+ * \defgroup c_high_api_ref high level stream apis
+ * \ingroup c_ref
+ */
 
 #endif /* ASTRA_H */

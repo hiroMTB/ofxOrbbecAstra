@@ -25,6 +25,11 @@
 
 ASTRA_BEGIN_DECLS
 
+/**
+ * \defgroup image_ref image stream apis
+ * \ingroup c_low_api_ref
+ * @{
+ */
 ASTRA_API_EX astra_status_t astra_imagestream_get_mirroring(astra_imagestream_t imageStream,
                                                             bool* mirroring);
 
@@ -80,8 +85,17 @@ ASTRA_API_EX astra_status_t astra_imageframe_copy_data(astra_imageframe_t imageF
 ASTRA_API_EX astra_status_t astra_imageframe_get_metadata(astra_imageframe_t imageFrame,
                                                           astra_image_metadata_t* metadata);
 
+
+/**
+ * rotate image frame, such as depth, color, masked color.
+ * @param angle the angle of clockwise direction rotation, can be 90 and 270.
+ */
+ASTRA_API_EX astra_status_t astra_imageframe_rotate(astra_imageframe_t imageFrame, int angle);
+
+
 ASTRA_API_EX void astra_pixelformat_get_bytes_per_pixel(astra_pixel_format_t format,
                                                         uint8_t* bpp);
+/** @} */
 
 ASTRA_END_DECLS
 

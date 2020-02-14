@@ -46,8 +46,6 @@ typedef struct {
 	int32_t vid;
 } astra_usb_info_t;
 
-
-
 /*! \brief Represents a 3x3 rotation matrix */
 typedef struct _astra_matrix3x3 {
     union {
@@ -66,16 +64,16 @@ typedef struct _astra_matrix3x3 {
 } astra_matrix3x3_t;
 
 enum astra_core_stream_types {
-    ASTRA_STREAM_DEPTH = 1,
-    ASTRA_STREAM_COLOR = 2,
-    ASTRA_STREAM_INFRARED = 3,
-    ASTRA_STREAM_HAND = 4,
-    ASTRA_STREAM_BODY = 5,
+    ASTRA_STREAM_DEPTH          = 1,
+    ASTRA_STREAM_COLOR          = 2,
+    ASTRA_STREAM_INFRARED       = 3,
+    ASTRA_STREAM_HAND           = 4,
+    ASTRA_STREAM_BODY           = 5,
     ASTRA_STREAM_STYLIZED_DEPTH = 6,
-    ASTRA_STREAM_POINT = 7,
-    ASTRA_STREAM_MASKED_COLOR = 8,
+    ASTRA_STREAM_POINT          = 7,
+    ASTRA_STREAM_MASKED_COLOR   = 8,
     ASTRA_STREAM_COLORIZED_BODY = 9,
-    ASTRA_STREAM_DEBUG_HAND = 3001,
+    ASTRA_STREAM_DEBUG_HAND     = 3001,
 };
 
 #endif /* ASTRA_CTYPES_H */

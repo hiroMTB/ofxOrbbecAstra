@@ -23,7 +23,10 @@
 
 namespace astra {
 
-    /*! \brief Represents a 3x3 rotation matrix */
+    /*! 
+    \ingroup cpp_basic_types_ref
+    \brief Represents a 3x3 rotation matrix 
+    */
     struct Matrix3x3 : private ::astra_matrix3x3_t
     {
         Matrix3x3()
