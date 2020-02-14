@@ -70,8 +70,8 @@ protected:
 
 	void updateDepthLookupTable();
 
-	astra::StreamSet streamset;
-	astra::StreamReader reader;
+    astra::StreamSet * streamset;
+    astra::StreamReader reader;
 
 	int width;
 	int height;

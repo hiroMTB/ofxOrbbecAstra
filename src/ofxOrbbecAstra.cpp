@@ -52,12 +52,12 @@ void ofxOrbbecAstra::setup(const string& uri) {
 		ofLogNotice() << "Astra SDK version: " << info.friendlyVersionString;
 	}
 
-
-	streamset = astra::StreamSet(uri.c_str());
-	reader = astra::StreamReader(streamset.create_reader());
+    streamset = new astra::StreamSet(uri.c_str());
+    reader = streamset->create_reader();
 
 	bSetup = true;
 	reader.add_listener(*this);
+
 }
 
 void ofxOrbbecAstra::enableDepthImage(bool enable) {
