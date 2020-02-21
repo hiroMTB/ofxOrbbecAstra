@@ -26,7 +26,7 @@ This has been tested with the following setup:
 ## Important notice using on macOS
 - Orbbec stops macOS support after Astra SDK 0.5.0.
 - It does not support body tracking feature.
-- Current master branch uses **Astra SDK 2.0.19** which has different API from 0.5.0
+- Current master branch uses **Astra SDK 2.0.19** which has different API from 0.5.0, hence master branch does not work on macOS.
 - Please use [OSX-AstraSDK.0.5.0](https://github.com/hiroMTB/ofxOrbbecAstra/tree/OSX-AstraSDK.0.5.0) branch for macOS
 - We can not download Astra SDK from Orrbec website but this branch contains all necessaly library files(.dylib and headers).
 - However!! you might need OpenNI driver installed (I will check this later...)
