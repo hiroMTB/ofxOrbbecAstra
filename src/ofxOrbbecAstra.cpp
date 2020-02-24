@@ -52,7 +52,7 @@ void ofxOrbbecAstra::setup(const string& uri) {
 		ofLogNotice() << "Astra SDK version: " << info.friendlyVersionString;
 	}
 
-    streamset = new astra::StreamSet(uri.c_str());
+    streamset = shared_ptr<astra::StreamSet>(new astra::StreamSet(uri.c_str()));
     reader = streamset->create_reader();
 
 	bSetup = true;
