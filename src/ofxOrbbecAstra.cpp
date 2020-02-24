@@ -45,13 +45,15 @@ void ofxOrbbecAstra::setup(const string& uri) {
 	if (status != ASTRA_STATUS_SUCCESS) {
 		ofLogError() << "Failed to initialize Astra camera, status id:  " << status;
 	}
+    #ifndef TARGET_OSX
 	else {
 		astra_version_info_t info;
 		astra_status_t s = astra_version(&info);
 		ofLogNotice() << "Astra SDK successfully initialized.";
 		ofLogNotice() << "Astra SDK version: " << info.friendlyVersionString;
 	}
-
+    #endif
+    
     streamset = shared_ptr<astra::StreamSet>(new astra::StreamSet(uri.c_str()));
     reader = streamset->create_reader();
 
