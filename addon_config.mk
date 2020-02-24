@@ -6,15 +6,21 @@ meta:
 	ADDON_URL = https://github.com/mattfelsen/ofxOrbbecAstra
 
 common:	
-	#ADDON_LIBS += libs/astra/lib
 
-linux64:	
-	ADDON_DATA = libs/astra/lib/linux64/*	
-	ADDON_DLLS_TO_COPY  = libs/astra/lib/linux64/
-	
+vs:
+linux64:
+    # version 2.0.19
+    ADDON_INCLUDES = libs/astra_v2.0.19/include
+	ADDON_LIBS = libs/astra_v2.0.19/lib
+	ADDON_DATA = libs/astra_v2.0.19/lib/linux64/*	
+	ADDON_DLLS_TO_COPY  = libs/astra_v2.0.19/lib/linux64/
+
 osx:
+    ADDON_INCLUDES = libs/astra_v0.5.0/include
+    ADDON_LIBS = libs/astra_v0.5.0/lib/osx/libastra_core_api.dylib
+    ADDON_LIBS += libs/astra_v0.5.0/lib/osx/libastra_core.dylib
+    ADDON_LIBS += libs/astra_v0.5.0/lib/osx/libastra.dylib
 
-    ADDON_LDFLAGS = -rpath ../../../../addons/ofxOrbbecAstra/libs/astra/lib/osx
 
     # ↑↑↑ this enables to excute app from Xcode. But not by double clicking .app from finder
     # To make standalone app package, we need additional process (copy and install_name_tool).
@@ -35,14 +41,8 @@ osx:
     # Now you can double click and launch your app
     # more discussion at here https://forum.openframeworks.cc/t/dynamic-libraries-for-osx-addon/19908/11
 
-    # Legacy(does not work with ProjectGenerator)
-    # ADDON_LIBS  = libs/astra/lib/osx/libastra_core_api.dylib
-    # ADDON_LIBS += libs/astra/lib/osx/libastra_core.dylib
-    # ADDON_LIBS += libs/astra/lib/osx/libastra.dylib
-
 	# All of the libs, including those inside the Plugins folder, do need to be
 	# available for loading at runtime, so copy them into the bin folder,
 	# maintaining the folder structure
     # this does not work on OSX
     # ADDON_DLLS_TO_COPY  = libs/astra/lib/osx/
-	
