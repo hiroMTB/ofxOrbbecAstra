@@ -156,6 +156,26 @@ void ofxOrbbecAstra::initVideoGrabber(int deviceID) {
 	grabber->setup(width, height);
 }
 
+void ofxOrbbecAstra::startColorStream(){
+    auto colorStream = reader.stream<astra::ColorStream>();
+    colorStream.start();
+}
+
+void ofxOrbbecAstra::stopColorStream(){
+    auto colorStream = reader.stream<astra::ColorStream>();
+    colorStream.stop();
+}
+
+void ofxOrbbecAstra::startDepthStream(){
+    auto depthStream = reader.stream<astra::DepthStream>();
+    depthStream.start();
+}
+
+void ofxOrbbecAstra::stopDepthStream(){
+    auto depthStream = reader.stream<astra::DepthStream>();
+    depthStream.stop();
+}
+
 void ofxOrbbecAstra::update(){
 	// See on_frame_ready() for more processing
 	bIsFrameNew = false;

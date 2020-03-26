@@ -36,6 +36,11 @@ public:
     void initBodyStream();
 	void initVideoGrabber(int deviceID = 0);
 
+    void startColorStream();
+    void stopColorStream();
+    void startDepthStream();
+    void stopDepthStream();
+
 	void update();
 	bool isFrameNew();
 
