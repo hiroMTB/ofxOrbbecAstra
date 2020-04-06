@@ -8,6 +8,13 @@ meta:
 common:	
 
 vs:
+    # version 2.1.0
+    ADDON_INCLUDES = src
+    ADDON_INCLUDES += libs/astra_v2.1.0/include
+	ADDON_LIBS_EXCLUDES = libs/astra_v0.5.0/
+	ADDON_DATA = libs/astra_v2.1.0/lib/vs/*
+	ADDON_DLLS_TO_COPY  = libs/astra_v2.1.0/lib/vs/
+
 linux64:
     # version 2.0.19
     ADDON_INCLUDES = libs/astra_v2.0.19/include
