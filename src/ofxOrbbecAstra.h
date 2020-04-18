@@ -49,6 +49,10 @@ public:
 	void draw(float x = 0, float y = 0, float w = 0, float h = 0);
 	void drawDepth(float x = 0, float y = 0, float w = 0, float h = 0);
 
+    vector<ofVec3f> & getCachedCoords(){
+        return cachedCoords;
+    }
+    
 #ifndef TARGET_OSX
     ofVec2f getJointPosition(int body_id, int joint_id);
     vector<astra::Joint>& getJointPositions(int body_id);
