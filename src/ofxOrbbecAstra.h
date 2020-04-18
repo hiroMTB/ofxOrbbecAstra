@@ -40,6 +40,8 @@ public:
     void stopColorStream();
     void startDepthStream();
     void stopDepthStream();
+    void startPointStream();
+    void stopPointStream();
 
 	void update();
 	bool isFrameNew();

@@ -176,6 +176,16 @@ void ofxOrbbecAstra::stopDepthStream(){
     depthStream.stop();
 }
 
+void ofxOrbbecAstra::startPointStream(){
+    auto pointStream = reader.stream<astra::PointStream>();
+    pointStream.start();
+}
+
+void ofxOrbbecAstra::stopPointStream(){
+    auto pointStream = reader.stream<astra::PointStream>();
+    pointStream.stop();
+}
+
 void ofxOrbbecAstra::update(){
 	// See on_frame_ready() for more processing
 	bIsFrameNew = false;
