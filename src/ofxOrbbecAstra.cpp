@@ -7,6 +7,7 @@
 //
 
 #include "ofxOrbbecAstra.h"
+#include "tbb/tbb.h"
 
 ofxOrbbecAstra::ofxOrbbecAstra() {
 	width = 640;
@@ -244,12 +245,27 @@ void ofxOrbbecAstra::on_frame_ready(astra::StreamReader& reader,
 
 		if (bDepthImageEnabled) {
 			// TODO do this with a shader so it's fast?
-			for (int i = 0; i < depthPixels.size(); i++) {
-				short depth = depthPixels.getColor(i).r;
-				depth = ofClamp(depth, 0, maxDepth-1);
-				float val = depthLookupTable[depth];
-				depthImage.setColor(i, ofColor(val));
-			}
+            
+            if(1){
+                // TBB instead of shader
+                tbb::parallel_for(
+                                  tbb::blocked_range<size_t>(0, depthPixels.size()),
+                                  [&](const tbb::blocked_range<size_t> & r) {
+                                      for (std::size_t i = r.begin(); i != r.end(); ++i) {
+                                          short depth = depthPixels.getColor(i).r;
+                                          depth = ofClamp(depth, 0, maxDepth-1);
+                                          float val = depthLookupTable[depth];
+                                          depthImage.setColor(i, ofColor(val));
+                                      }
+                                  });
+            }else{
+                for (int i = 0; i < depthPixels.size(); i++) {
+                    short depth = depthPixels.getColor(i).r;
+                    depth = ofClamp(depth, 0, maxDepth-1);
+                    float val = depthLookupTable[depth];
+                    depthImage.setColor(i, ofColor(val));
+                }
+            }
 			depthImage.update();
 		}
 	}
