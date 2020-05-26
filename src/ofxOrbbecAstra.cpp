@@ -31,11 +31,11 @@ void ofxOrbbecAstra::setLicenseString(const string& license) {
     #endif
 }
 
-void ofxOrbbecAstra::setup() {
-	setup("device/default");
+bool ofxOrbbecAstra::setup() {
+	return setup("device/default");
 }
 
-void ofxOrbbecAstra::setup(const string& uri) {
+bool ofxOrbbecAstra::setup(const string& uri) {
 	colorImage.allocate(width, height, OF_IMAGE_COLOR);
 	depthImage.allocate(width, height, OF_IMAGE_GRAYSCALE);
 	depthPixels.allocate(width, height, OF_IMAGE_GRAYSCALE);
@@ -46,20 +46,40 @@ void ofxOrbbecAstra::setup(const string& uri) {
 	if (status != ASTRA_STATUS_SUCCESS) {
 		ofLogError() << "Failed to initialize Astra camera, status id:  " << status;
 	}
-    #ifndef TARGET_OSX
+#ifndef TARGET_OSX
 	else {
 		astra_version_info_t info;
 		astra_status_t s = astra_version(&info);
 		ofLogNotice() << "Astra SDK successfully initialized.";
 		ofLogNotice() << "Astra SDK version: " << info.friendlyVersionString;
 	}
-    #endif
-    
-    streamset = shared_ptr<astra::StreamSet>(new astra::StreamSet(uri.c_str()));
-    reader = streamset->create_reader();
+#endif
 
-	bSetup = true;
-	reader.add_listener(*this);
+	streamset = shared_ptr<astra::StreamSet>(new astra::StreamSet(uri.c_str()));
+
+	reader = streamset->create_reader();
+	
+#ifndef TARGET_OSX
+	// Astra SKD can not detect if the device is actually connected or not.
+	// status info above is for SDK initialization but not for hardware status
+	// So here we check Astra's hardware Serial Number for device conection check.
+	// it will return empty string if device is not connected.
+	string sn = getSerialNumber();
+
+	if (sn == "") {
+		ofLogError() << "Can not get serial number, probablly Astra is not connected.";
+		return false;
+	}
+	else {
+		bSetup = true;
+		reader.add_listener(*this);
+		ofLogNotice() << "Astra camera is connected, serial number= " + sn;
+		return true;
+	}
+#else
+	// macOS always return true because SDK does not support serial number API
+	return true;
+#endif
 
 }
 

@@ -21,8 +21,8 @@ public:
 
 	// For multiple cameras, use "device/sensor0",
 	// "device/sensor1", etc. Otherwise, leave blank.
-	void setup();
-	void setup(const string& uri);
+	bool setup();
+	bool setup(const string& uri);
     void setLicenseString(const string& license);
     
 	void enableDepthImage(bool enable);
