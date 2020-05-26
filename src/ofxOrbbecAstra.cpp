@@ -409,6 +409,10 @@ string ofxOrbbecAstra::getJointName(astra::JointType id) {
     }
 }
 
+string ofxOrbbecAstra::getSerialNumber() {
+	auto depthStream = reader.stream<astra::DepthStream>();
+	return depthStream.serial_number();
+}
 #endif
 
 unsigned short ofxOrbbecAstra::getNearClip() {

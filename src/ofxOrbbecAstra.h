@@ -60,6 +60,7 @@ public:
     int getNumJoints(int body_id);
     astra::JointType getJointType(int body_id, int joint_id);
     string getJointName(astra::JointType id);
+	string getSerialNumber();
 #endif
     
 	ofVec3f getWorldCoordinateAt(int x, int y);    
