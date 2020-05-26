@@ -16,6 +16,8 @@ class ofxOrbbecAstra : public astra::FrameListener {
 
 public:
 
+	static void terminate();
+
 	ofxOrbbecAstra();
 	~ofxOrbbecAstra();  
 

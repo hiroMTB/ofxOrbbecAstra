@@ -22,6 +22,9 @@ ofxOrbbecAstra::ofxOrbbecAstra() {
 }
 
 ofxOrbbecAstra::~ofxOrbbecAstra() {
+}
+
+void ofxOrbbecAstra::terminate() {
 	astra::terminate();
 }
 
