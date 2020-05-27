@@ -81,6 +81,8 @@ bool ofxOrbbecAstra::setup(const string& uri) {
 	}
 #else
 	// macOS always return true because SDK does not support serial number API
+    bSetup = true;
+    reader.add_listener(*this);
 	return true;
 #endif
 
