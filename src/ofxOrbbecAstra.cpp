@@ -249,7 +249,8 @@ void ofxOrbbecAstra::on_frame_ready(astra::StreamReader& reader,
 									astra::Frame& frame)
 {
 	bIsFrameNew = true;
-
+    lastUpdateTime = ofGetElapsedTimef();
+    
 	auto colorFrame = frame.get<astra::ColorFrame>();
 	auto depthFrame = frame.get<astra::DepthFrame>();
 	auto pointFrame = frame.get<astra::PointFrame>();

@@ -77,6 +77,7 @@ public:
     map<int32_t,ofVec2f>& getHandsDepth();
     map<int32_t,ofVec3f>& getHandsWorld();
 
+    float getLastUpdateTime(){ return lastUpdateTime; };
 protected:
 
 	virtual void on_frame_ready(astra::StreamReader& reader,
@@ -91,6 +92,7 @@ protected:
 	int height;
 	bool bSetup;
 	bool bIsFrameNew;
+    float lastUpdateTime;
 	bool bDepthImageEnabled;
 	unsigned short nearClip;
 	unsigned short farClip;
